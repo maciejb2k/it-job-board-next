@@ -1,0 +1,35 @@
+.offer {
+  background: rgba(23, 30, 46, 0.5);
+  border: 1px solid #242c40;
+  border-radius: 3px;
+  padding: 20px;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.offerHeader {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.company {
+  font-size: 14px;
+  font-weight: 400;
+  color: #a5aab8;
+}
+
+.technologyIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: #ffffff;
+  border-radius: 3px;
+  font-size: 20px;
+}

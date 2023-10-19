@@ -1,0 +1,50 @@
+.panel {
+  background: rgba(23, 30, 46, 0.5);
+  width: 25%;
+  border: 1px solid #242c40;
+  border-radius: 3px;
+}
+
+.group {
+  padding: 20px 25px;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid #242c40;
+  }
+}
+
+.groupHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.groupButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.groupToggleIcon {
+  width: 20px;
+  height: 20px;
+  color: #ffffff;
+  transform: rotate(0deg);
+  transition: all 0.15s linear;
+}
+
+.groupToggleIconOpened {
+  transform: rotate(-180deg);
+}
+
+.groupContent {
+  padding-top: 20px;
+}
+
+.groupTitle {
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

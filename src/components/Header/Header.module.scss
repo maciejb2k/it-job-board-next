@@ -1,9 +1,11 @@
 .header {
-  background: #000000;
+  background: #000;
   border-bottom: 1px solid #2d364b;
   height: 80px;
   position: fixed;
+  top: 0;
   width: 100%;
+  z-index: 1;
 }
 
 .nav {
@@ -119,11 +121,13 @@
   right: 0;
   transform: translateX(-16px);
   transition: visibility 0s ease 0s, opacity 0.2s linear 0s, transform 0.2s linear 0s;
+  box-shadow: 0 0 40px 20px rgba(0, 0, 0, 0.5);
 }
 
 .dropdownInner {
   background: #171e2e;
   border: 1px solid #2d364b;
+  border-radius: 3px;
   display: grid;
   display: flex;
 }
@@ -139,9 +143,6 @@
   &:not(:last-child) {
     border-right: 1px solid #2d364b;
   }
-}
-
-.dropdownGroup {
 }
 
 .dropdownLabel {
@@ -180,6 +181,7 @@
   height: 120px;
   object-fit: cover;
   margin-bottom: 10px;
+  border-radius: 3px;
 }
 
 .blogPostTitle {

@@ -1,5 +1,9 @@
-import { Button } from "@mantine/core";
+import Header from "@/components/Header";
 
-export default function Home() {
-  return <Button variant="filled">Hello World</Button>;
+export default function Page() {
+  return (
+    <>
+      <Header></Header>
+    </>
+  );
 }

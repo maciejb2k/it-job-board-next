@@ -1,7 +1,21 @@
 .offers {
   flex-grow: 1;
+  padding-bottom: 50px;
+}
+
+.subscribe {
+  display: flex;
+  align-items: center;
+  color: #d5d9e4;
+  text-decoration: underline;
+  gap: 5px;
+}
+
+.offersGrid {
+  flex-grow: 1;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 20px;
+  grid-gap: 15px;
   grid-auto-rows: min-content;
+  margin-bottom: 50px;
 }

@@ -1,0 +1,34 @@
+.salary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+}
+
+.salaryAmount {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.salaryType {
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase;
+  background: rgba(0, 0, 0, 0.5);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 15px;
+  border-radius: 5px;
+}
+
+.salaryCurrency {
+  text-transform: uppercase;
+  color: #a5aab8;
+}
+
+.salaryConfidential {
+  color: #a5aab8;
+}

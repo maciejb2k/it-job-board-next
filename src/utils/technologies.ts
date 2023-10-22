@@ -1,7 +1,7 @@
 export const technologies: any = {
   js: {
     icon: 'javascript',
-    color: '#f0db4f',
+    color: '#bda925',
   },
   '.net': {
     icon: 'dotnetcore',

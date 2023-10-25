@@ -4,12 +4,30 @@ import { Button, Collapse, Modal, Checkbox } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconChevronRight, IconChevronUp, IconAdjustments } from '@tabler/icons-react';
 
-import s from './Filters.module.scss';
+import s from './styles.module.scss';
+import { useJobOffers } from '@/providers/JobOffersContext';
 
 export default function Filters() {
-  const [technologiesOpened, { toggle: technologiesToggle }] = useDisclosure(false);
+  const [technologiesOpened, { toggle: technologiesToggle }] = useDisclosure(true);
   const [categoriesOpened, { toggle: categoriesToggle }] = useDisclosure(false);
   const [filtersOpened, { open: openFilters, close: closeFilters }] = useDisclosure(false);
+
+  const {
+    filters: { technologies },
+    setTechnologies,
+    updateUrl,
+  } = useJobOffers();
+
+  const updateTechnologies = (technology: string) => {
+    const newTechnologies = technologies.includes(technology)
+      ? technologies.filter((item) => item !== technology)
+      : [...technologies, technology];
+
+    return () => {
+      setTechnologies(newTechnologies);
+      updateUrl();
+    };
+  };
 
   return (
     <>
@@ -78,7 +96,36 @@ export default function Filters() {
           </header>
           <Collapse in={technologiesOpened}>
             <div className={s.groupContent}>
-              <Checkbox defaultChecked label="I agree to sell my privacy" />
+              <Checkbox
+                label="JavaScript"
+                value="javascript"
+                checked={technologies.includes('javascript')}
+                onChange={updateTechnologies('javascript')}
+              />
+              <Checkbox
+                label="Ruby"
+                value="ruby"
+                checked={technologies.includes('ruby')}
+                onChange={updateTechnologies('ruby')}
+              />
+              <Checkbox
+                label="Flutter"
+                value="flutter"
+                checked={technologies.includes('flutter')}
+                onChange={updateTechnologies('flutter')}
+              />
+              <Checkbox
+                label="Scala"
+                value="scala"
+                checked={technologies.includes('scala')}
+                onChange={updateTechnologies('scala')}
+              />
+              <Checkbox
+                label="Java"
+                value="java"
+                checked={technologies.includes('java')}
+                onChange={updateTechnologies('java')}
+              />
             </div>
           </Collapse>
         </div>

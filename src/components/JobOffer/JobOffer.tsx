@@ -10,7 +10,7 @@ import s from './JobOffer.module.scss';
 import { IconCalendar, IconDeviceLaptop, IconMapPin } from '@tabler/icons-react';
 import Link from 'next/link';
 
-import Salary from './Salary';
+import Salary from '@/components/JobOfferSalary';
 
 dayjs.extend(relativeTime);
 

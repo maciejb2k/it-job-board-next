@@ -1,22 +1,43 @@
-import { SearchParams } from '@/types';
+import { Suspense } from 'react';
+import { LoadingOverlay } from '@mantine/core';
 
-import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import Filters from '@/components/Filters';
-import JobOffers from '@/components/JobOffers';
+import JobOffersPagination from '@/components/JobOffersPagination';
+import JobOffersHeader from '@/components/JobOffersHeader';
+
+import { allowedGetJobOffersParams, getJobOffers } from '@/services/jobOffersService';
 
 import s from './styles.module.scss';
+import { getQueryParams, filtereParams } from '@/utils/queryParams';
+import JobOffers from '@/components/JobOffers';
+import { JobOffersProvider } from '@/providers/JobOffersContext';
+import { headers } from 'next/headers';
 
-export default function Page({ searchParams }: { searchParams: SearchParams }) {
+export default async function Page() {
+  const headersList = headers();
+  const url = headersList.get('x-url');
+
+  if (!url) throw new Error('The x-url header is not present in the request.');
+
+  const queryParams = getQueryParams(url);
+  const filteredParams = filtereParams(queryParams, allowedGetJobOffersParams);
+
+  const { data, pages, currentPage } = await getJobOffers(filteredParams);
+
   return (
-    <>
+    <JobOffersProvider>
       <div className={`container-lg ${s.pageContent}`}>
         <Hero></Hero>
         <main className={`${s.main}`}>
           <Filters></Filters>
-          <JobOffers searchParams={searchParams}></JobOffers>
+          <div className={s.offers}>
+            <JobOffersHeader />
+            <JobOffers data={data} />
+            <JobOffersPagination pages={pages} currentPage={currentPage} />
+          </div>
         </main>
       </div>
-    </>
+    </JobOffersProvider>
   );
 }

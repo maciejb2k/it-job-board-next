@@ -1,11 +1,11 @@
 'use client';
 
-import { useJobOffersStore } from '@/store/jobOffers';
+import { useJobOffers } from '@/providers/JobOffersContext';
 
-import s from './Salary.module.scss';
+import s from './styles.module.scss';
 
-export default function Salary({ contracts }: { contracts: any }) {
-  const employmentType = useJobOffersStore((state) => state.employmentType);
+export default function JobOfferSalary({ contracts }: { contracts: any }) {
+  const { employmentType } = useJobOffers();
 
   const filteredContracts = contracts.filter((contract: any) => contract.employment === employmentType);
 

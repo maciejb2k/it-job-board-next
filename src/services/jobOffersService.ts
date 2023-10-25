@@ -1,13 +1,36 @@
-export async function getJobOffers({ page = 1, items = 10 }: { page: number; items: number }): Promise<{
+type GetJobOffers = (searchParams: URLSearchParams) => Promise<{
   data: any;
   pages: number;
   count: number;
   currentPage: number;
-}> {
-  const queryParams = new URLSearchParams({ page: page.toString(), items: items.toString() });
+}>;
+
+export const allowedGetJobOffersParams = [
+  'page',
+  'items',
+  'sort',
+  'order',
+  'is_active',
+  'is_interview_online',
+  'is_ua_supported',
+  'by_title',
+  'by_category',
+  'by_technology',
+  'by_remote',
+  'by_travelling',
+  'by_city',
+  'by_seniority',
+  'by_currency',
+  'by_employment',
+  'by_language',
+  'by_skill',
+  'by_salary',
+];
+
+export const getJobOffers: GetJobOffers = async (queryParams) => {
   const url = `${process.env.NEXT_PUBLIC_API_URL}/job/offers?${queryParams.toString()}`;
 
-  const res = await fetch(url);
+  const res = await fetch(url, { cache: 'no-store' });
 
   if (!res.ok) {
     throw new Error('Failed to fetch data');
@@ -20,4 +43,4 @@ export async function getJobOffers({ page = 1, items = 10 }: { page: number; ite
   const currentPage = Number(res.headers.get('current-page'));
 
   return { data, pages, count, currentPage };
-}
+};

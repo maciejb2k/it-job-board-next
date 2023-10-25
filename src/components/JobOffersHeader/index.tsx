@@ -1,17 +1,15 @@
 'use client';
 
 import { useState } from 'react';
-import { Input, InputBase, Combobox, useCombobox, VisuallyHidden } from '@mantine/core';
+
+import { Input, InputBase, Combobox, useCombobox, VisuallyHidden, SegmentedControl } from '@mantine/core';
+import { IconLayoutList, IconLayoutGrid } from '@tabler/icons-react';
+
+import { useJobOffers } from '@/providers/JobOffersContext';
+
+import s from './styles.module.scss';
 
 const sortingOptions = ['Newest', 'Oldest', 'Highest salary', 'Lowest salary'];
-
-import { SegmentedControl } from '@mantine/core';
-
-import { useJobOffersStore } from '@/store/jobOffers';
-
-import { IconEye, IconCode, IconExternalLink, IconLayoutList, IconLayoutGrid } from '@tabler/icons-react';
-
-import s from './Header.module.scss';
 
 const employmentOptions = [
   {
@@ -45,7 +43,7 @@ const viewOptions = [
   },
 ];
 
-export default function Header() {
+export default function JobOffersHeader() {
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
     onDropdownOpen: (eventSource) => {
@@ -65,8 +63,7 @@ export default function Header() {
     </Combobox.Option>
   ));
 
-  const employmentType = useJobOffersStore((state) => state.employmentType);
-  const setEmploymentType = useJobOffersStore((state) => state.setEmploymentType);
+  const { employmentType, setEmploymentType } = useJobOffers();
 
   return (
     <header className={s.header}>

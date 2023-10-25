@@ -4,9 +4,9 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { Pagination } from '@mantine/core';
 
-import s from './Pagy.module.scss';
+import s from './styles.module.scss';
 
-export default function Pagy({ pages, currentPage }: { pages: number; currentPage: number }) {
+export default function JobOffersPagination({ pages, currentPage }: { pages: number; currentPage: number }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();

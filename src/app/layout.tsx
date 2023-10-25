@@ -4,10 +4,11 @@ import { ColorSchemeScript } from '@mantine/core';
 import { inter, oenosBold, oenosRegular, roboto_mono } from './fonts';
 import ThemeRegistry from '@/providers/ThemeRegistry';
 
-import '@mantine/core/styles.css';
 import '@/css/app.scss';
 import 'devicon/devicon.min.css';
-import Header from '@/components/Header/Header';
+import '@mantine/core/styles.css';
+import Header from '@/components/Header';
+import QueryProvider from '@/providers/QueryProvider';
 
 export const metadata: Metadata = {
   title: 'IT job board',
@@ -22,8 +23,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className={[inter.variable, oenosBold.variable, oenosRegular.variable, roboto_mono.variable].join(' ')}>
         <ThemeRegistry>
-          <Header />
-          {children}
+          <QueryProvider>
+            <Header />
+            {children}
+          </QueryProvider>
         </ThemeRegistry>
       </body>
     </html>

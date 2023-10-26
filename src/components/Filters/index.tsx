@@ -161,10 +161,17 @@ export default function Filters() {
           </div>
         </div>
         <div className={s.group}>
-          <header className={s.groupHeader} onClick={categoriesToggle}>
-            <h2 className={s.groupTitle}>Categories</h2>
+          <header className={s.groupHeader}>
+            <div className={s.groupLeft}>
+              <h2 className={s.groupTitle}>Categories</h2>
+              {hasFilter('categories') && (
+                <Button color="red" size="compact-xs" variant="outline" onClick={() => clearFilter('categories')}>
+                  <IconX size={14} />
+                </Button>
+              )}
+            </div>
             <div className={s.groupButtons}>
-              <Button size="compact-sm" variant="transparent" className={s.groupButton}>
+              <Button size="compact-sm" variant="transparent" className={s.groupButton} onClick={categoriesToggle}>
                 <IconChevronUp className={`${s.groupToggleIcon} ${categoriesOpened ? s.groupToggleIconOpened : ''}`} />
               </Button>
             </div>

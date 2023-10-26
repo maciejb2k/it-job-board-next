@@ -101,7 +101,7 @@ const JobOffersProvider = ({ children }: { children: React.ReactNode }) => {
 
   const updateUrl = () => {
     const queryParameters = {
-      ...(searchParams.has('page') && { page: searchState.page }),
+      ...((searchParams.has('page') || searchState.page != 1) && { page: searchState.page }),
       sort: searchState.sort,
       by_technology: searchState.filters.technologies,
       by_category: searchState.filters.categories,

@@ -24,7 +24,7 @@ const employmentOptions = [
 
 const viewOptions = [
   {
-    value: 'preview',
+    value: 'grid',
     label: (
       <>
         <IconLayoutGrid size="12" />
@@ -33,7 +33,7 @@ const viewOptions = [
     ),
   },
   {
-    value: 'code',
+    value: 'list',
     label: (
       <>
         <IconLayoutList size="12" />
@@ -63,7 +63,7 @@ export default function JobOffersHeader() {
     </Combobox.Option>
   ));
 
-  const { employmentType, setEmploymentType } = useJobOffers();
+  const { employmentType, viewType, setViewType, setEmploymentType } = useJobOffers();
 
   return (
     <header className={s.header}>
@@ -95,7 +95,7 @@ export default function JobOffersHeader() {
       </div>
       <div className={s.headerRight}>
         <SegmentedControl value={employmentType} onChange={setEmploymentType} data={employmentOptions} />
-        <SegmentedControl data={viewOptions} />
+        <SegmentedControl value={viewType} onChange={setViewType} data={viewOptions} />
       </div>
     </header>
   );

@@ -1,3 +1,5 @@
+import '@mantine/core/styles.css';
+
 import type { Metadata } from 'next';
 import { ColorSchemeScript } from '@mantine/core';
 
@@ -6,7 +8,6 @@ import ThemeRegistry from '@/providers/ThemeRegistry';
 
 import '@/css/app.scss';
 import 'devicon/devicon.min.css';
-import '@mantine/core/styles.css';
 import Header from '@/components/Header';
 import QueryProvider from '@/providers/QueryProvider';
 

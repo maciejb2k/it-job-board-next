@@ -15,7 +15,8 @@ export default function Filters() {
   const {
     filters: { technologies },
     setTechnologies,
-    updateUrl,
+    hasFilters,
+    clearFilters,
   } = useJobOffers();
 
   const updateTechnologies = (technology: string) => {
@@ -23,10 +24,7 @@ export default function Filters() {
       ? technologies.filter((item) => item !== technology)
       : [...technologies, technology];
 
-    return () => {
-      setTechnologies(newTechnologies);
-      updateUrl();
-    };
+    setTechnologies(newTechnologies);
   };
 
   return (
@@ -51,9 +49,11 @@ export default function Filters() {
           <header className={s.groupHeader}>
             <h2 className={s.groupTitle}>Filters</h2>
             <div className={s.groupButtons}>
-              <Button color="gray" size="compact-xs" variant="outline">
-                Clear all
-              </Button>
+              {hasFilters() && (
+                <Button color="gray" size="compact-xs" variant="outline" onClick={clearFilters}>
+                  Clear all
+                </Button>
+              )}
             </div>
           </header>
           <div className={s.groupContent}>
@@ -100,31 +100,31 @@ export default function Filters() {
                 label="JavaScript"
                 value="javascript"
                 checked={technologies.includes('javascript')}
-                onChange={updateTechnologies('javascript')}
+                onChange={() => updateTechnologies('javascript')}
               />
               <Checkbox
                 label="Ruby"
                 value="ruby"
                 checked={technologies.includes('ruby')}
-                onChange={updateTechnologies('ruby')}
+                onChange={() => updateTechnologies('ruby')}
               />
               <Checkbox
                 label="Flutter"
                 value="flutter"
                 checked={technologies.includes('flutter')}
-                onChange={updateTechnologies('flutter')}
+                onChange={() => updateTechnologies('flutter')}
               />
               <Checkbox
                 label="Scala"
                 value="scala"
                 checked={technologies.includes('scala')}
-                onChange={updateTechnologies('scala')}
+                onChange={() => updateTechnologies('scala')}
               />
               <Checkbox
                 label="Java"
                 value="java"
                 checked={technologies.includes('java')}
-                onChange={updateTechnologies('java')}
+                onChange={() => updateTechnologies('java')}
               />
             </div>
           </Collapse>

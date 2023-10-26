@@ -1,18 +1,43 @@
+import React, { Suspense } from 'react';
+import { headers } from 'next/headers';
+import { Loader } from '@mantine/core';
+
 import Hero from '@/components/Hero';
 import Filters from '@/components/Filters';
 import JobOffersPagination from '@/components/JobOffersPagination';
-
 import JobOffersHeader from '@/components/JobOffersHeader';
+import JobOffers from '@/components/JobOffers';
 
-import { allowedGetJobOffersParams, getJobOffers } from '@/services/jobOffersService';
+import { getJobOffers } from '@/services/jobOffersService';
 
 import s from './styles.module.scss';
-import { getQueryParams, filtereParams } from '@/utils/queryParams';
-import JobOffers from '@/components/JobOffers';
 import { JobOffersProvider } from '@/providers/JobOffersContext';
-import { headers } from 'next/headers';
+import { getQueryParams } from '@/utils/queryParams';
 
-export default async function Page() {
+export default async function Page({ searchParams }: { searchParams: any }) {
+  const params = new URLSearchParams(searchParams);
+
+  return (
+    <JobOffersProvider>
+      <div className={`container-lg ${s.pageContent}`}>
+        <Hero></Hero>
+        <main className={`${s.main}`}>
+          <Suspense>
+            <Filters />
+          </Suspense>
+          <div className={s.offers}>
+            <JobOffersHeader />
+            <Suspense key={params.toString()} fallback={<LoadingSkeleton />}>
+              <JobOffersContent />
+            </Suspense>
+          </div>
+        </main>
+      </div>
+    </JobOffersProvider>
+  );
+}
+
+const JobOffersContent = async () => {
   const headersList = headers();
   const url = headersList.get('x-url');
 
@@ -22,18 +47,17 @@ export default async function Page() {
   const { data, pages, currentPage } = await getJobOffers(queryParams);
 
   return (
-    <JobOffersProvider>
-      <div className={`container-lg ${s.pageContent}`}>
-        <Hero></Hero>
-        <main className={`${s.main}`}>
-          <Filters></Filters>
-          <div className={s.offers}>
-            <JobOffersHeader />
-            <JobOffers data={data} />
-            <JobOffersPagination pages={pages} currentPage={currentPage} />
-          </div>
-        </main>
-      </div>
-    </JobOffersProvider>
+    <>
+      <JobOffers data={data} />
+      <JobOffersPagination pages={pages} currentPage={currentPage} />
+    </>
   );
-}
+};
+
+const LoadingSkeleton = () => {
+  return (
+    <div className={s.offersLoader}>
+      <Loader />
+    </div>
+  );
+};

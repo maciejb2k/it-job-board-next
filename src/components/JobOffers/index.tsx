@@ -1,13 +1,12 @@
 import JobOffer from '@/components/JobOffer';
-
-import s from './styles.module.scss';
+import JobOffersGrid from '@/components/JobOffersGrid';
 
 export default async function JobOffers({ data }: { data: any }) {
   return (
-    <div className={s.offersGrid}>
+    <JobOffersGrid>
       {data.map((offer: any) => (
         <JobOffer offer={offer} key={offer.id} />
       ))}
-    </div>
+    </JobOffersGrid>
   );
 }

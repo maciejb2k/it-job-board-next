@@ -1,24 +1,20 @@
+import Link from 'next/link';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Flag from 'react-world-flags';
+import { IconCalendar, IconDeviceLaptop, IconMapPin } from '@tabler/icons-react';
 
 import { technologies as t } from '@/utils/technologies';
 import { seniorityLevelToText, remoteToText } from '@/utils/jobOffers';
 
-import s from './JobOffer.module.scss';
-import { IconCalendar, IconDeviceLaptop, IconMapPin } from '@tabler/icons-react';
-import Link from 'next/link';
-
 import Salary from '@/components/JobOfferSalary';
+
+import s from './styles.module.scss';
 
 dayjs.extend(relativeTime);
 
 const dateToDays = (date: string) => {
   return dayjs(date).fromNow();
-};
-
-const dateToFull = (date: string) => {
-  return dayjs(date).format('DD MMM YYYY');
 };
 
 export default function JobOffer({ offer }: { offer: any }) {

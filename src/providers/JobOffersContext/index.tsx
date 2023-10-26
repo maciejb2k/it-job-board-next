@@ -157,14 +157,17 @@ const JobOffersProvider = ({ children }: { children: React.ReactNode }) => {
 
   const setTechnologies = (technologies: string[]) => {
     searchDispatch({ type: 'SET_TECHNOLOGIES', payload: technologies });
+    searchDispatch({ type: 'SET_PAGE', payload: 1 });
   };
 
   const setCategories = (categories: string[]) => {
     searchDispatch({ type: 'SET_CATEGORIES', payload: categories });
+    searchDispatch({ type: 'SET_PAGE', payload: 1 });
   };
 
   const setSeniorities = (seniorities: SeniorityTypes[]) => {
     searchDispatch({ type: 'SET_SENIORITIES', payload: seniorities });
+    searchDispatch({ type: 'SET_PAGE', payload: 1 });
   };
 
   const setSalary = (salary: { from: number; to: number }) => {

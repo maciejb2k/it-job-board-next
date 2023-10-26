@@ -1,7 +1,7 @@
 import { Button, Group } from '@mantine/core';
-
-import s from './Hero.module.scss';
 import { IconApps, IconUserDollar } from '@tabler/icons-react';
+
+import s from './styles.module.scss';
 
 export default function Hero() {
   return (

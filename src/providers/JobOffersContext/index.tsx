@@ -274,7 +274,7 @@ const useJobOffers = () => {
   const context = useContext(JobOffersContext);
 
   if (context === undefined) {
-    throw new Error('useJobOffers must be used within a JobOffersProvider');
+    throw new Error('useJobOffers hook must be used within a JobOffersProvider');
   }
 
   return context;

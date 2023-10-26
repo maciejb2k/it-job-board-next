@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import {
   Button,
   Collapse,
@@ -16,11 +18,10 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 import { IconChevronRight, IconChevronUp, IconAdjustments, IconX } from '@tabler/icons-react';
 
-import s from './styles.module.scss';
 import { SeniorityTypes, useJobOffers } from '@/providers/JobOffersContext';
-import { useQuery } from '@tanstack/react-query';
 import { getCategories, getTechnologies } from '@/services/jobOffersService';
-import { useState } from 'react';
+
+import s from './styles.module.scss';
 
 type Category = {
   name: string;
@@ -85,28 +86,19 @@ export default function Filters() {
     setSalary({ from: salaryFrom, to: salaryTo });
   };
 
-  const updateTechnologies = (technology: string) => {
-    const newTechnologies = technologies.includes(technology)
-      ? technologies.filter((item) => item !== technology)
-      : [...technologies, technology];
+  const updateArray = <T,>(arr: T[], item: T) =>
+    arr.includes(item) ? arr.filter((curr) => curr !== item) : [...arr, item];
 
-    setTechnologies(newTechnologies);
+  const updateTechnologies = (technology: string) => {
+    setTechnologies(updateArray(technologies, technology));
   };
 
   const updateCategories = (category: string) => {
-    const newCategories = categories.includes(category)
-      ? categories.filter((item) => item !== category)
-      : [...categories, category];
-
-    setCategories(newCategories);
+    setCategories(updateArray(categories, category));
   };
 
   const updateSeniorities = (seniority: SeniorityTypes) => {
-    const newSeniorities = seniorities.includes(seniority)
-      ? seniorities.filter((item) => item !== seniority)
-      : [...seniorities, seniority];
-
-    setSeniorities(newSeniorities);
+    setSeniorities(updateArray(seniorities, seniority));
   };
 
   const getTechnologiesQuery = useQuery({

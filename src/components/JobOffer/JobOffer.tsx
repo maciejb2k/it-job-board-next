@@ -1,6 +1,5 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { Tooltip } from '@mantine/core';
 import Flag from 'react-world-flags';
 
 import { technologies as t } from '@/utils/technologies';
@@ -42,18 +41,14 @@ export default function JobOffer({ offer }: { offer: any }) {
         <div className={s.headerRight}>
           {offer['ua_supported'] ? (
             <>
-              <Tooltip arrowOffset={10} arrowSize={4} label="UA supported" withArrow position="top-start">
-                <Flag code="ua" height="10" />
-              </Tooltip>
+              <Flag code="ua" height="10" />
             </>
           ) : (
             ''
           )}
-          <Tooltip arrowOffset={10} arrowSize={4} label="Poland" withArrow position="top-start">
-            <span className={s.category}>
-              <IconMapPin size="10" /> PL
-            </span>
-          </Tooltip>
+          <span className={s.category}>
+            <IconMapPin size="10" /> PL
+          </span>
         </div>
       </Link>
       <div className={s.salaries}>
@@ -61,11 +56,9 @@ export default function JobOffer({ offer }: { offer: any }) {
         <Salary contracts={offer.contracts} />
       </div>
       <div className={s.offerInfo}>
-        <Tooltip arrowOffset={10} arrowSize={4} label={dateToFull(offer['created_at'])} withArrow position="top-start">
-          <p className={s.postedDate}>
-            <IconCalendar size={14} /> Posted {dateToDays(offer['created_at'])}
-          </p>
-        </Tooltip>
+        <p className={s.postedDate}>
+          <IconCalendar size={14} /> Posted {dateToDays(offer['created_at'])}
+        </p>
         <p className={s.remote}>
           <IconDeviceLaptop size={14} /> <span className={s.remoteText}>{remoteToText(offer.remote)} | Full-Time</span>
         </p>

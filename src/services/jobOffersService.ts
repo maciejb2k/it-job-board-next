@@ -44,3 +44,31 @@ export const getJobOffers: GetJobOffers = async (queryParams) => {
 
   return { data, pages, count, currentPage };
 };
+
+export const getTechnologies = async () => {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/technologies`;
+
+  const res = await fetch(url, { cache: 'no-store' });
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch technologies list.');
+  }
+
+  const data = await res.json();
+
+  return data;
+};
+
+export const getCategories = async () => {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/categories`;
+
+  const res = await fetch(url, { cache: 'no-store' });
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch categories list.');
+  }
+
+  const data = await res.json();
+
+  return data;
+};

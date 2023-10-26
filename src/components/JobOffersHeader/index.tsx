@@ -1,9 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-
-import { Input, InputBase, Combobox, useCombobox, VisuallyHidden, SegmentedControl } from '@mantine/core';
 import { IconLayoutList, IconLayoutGrid } from '@tabler/icons-react';
+import { Input, InputBase, Combobox, useCombobox, VisuallyHidden, SegmentedControl } from '@mantine/core';
 
 import { useJobOffers } from '@/providers/JobOffersContext';
 

@@ -1,9 +1,7 @@
-import { Suspense } from 'react';
-import { LoadingOverlay } from '@mantine/core';
-
 import Hero from '@/components/Hero';
 import Filters from '@/components/Filters';
 import JobOffersPagination from '@/components/JobOffersPagination';
+
 import JobOffersHeader from '@/components/JobOffersHeader';
 
 import { allowedGetJobOffersParams, getJobOffers } from '@/services/jobOffersService';
@@ -21,9 +19,7 @@ export default async function Page() {
   if (!url) throw new Error('The x-url header is not present in the request.');
 
   const queryParams = getQueryParams(url);
-  const filteredParams = filtereParams(queryParams, allowedGetJobOffersParams);
-
-  const { data, pages, currentPage } = await getJobOffers(filteredParams);
+  const { data, pages, currentPage } = await getJobOffers(queryParams);
 
   return (
     <JobOffersProvider>

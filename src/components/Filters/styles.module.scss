@@ -1,8 +1,11 @@
 .panel {
   background: rgba(23, 30, 46, 0.5);
-  width: 25%;
+  max-width: 300px;
+  width: 300px;
+  min-width: 300px;
   border: 1px solid #242c40;
   border-radius: 3px;
+  margin-bottom: 50px;
 }
 
 .group {
@@ -48,10 +51,24 @@
   gap: 10px;
 }
 
+.groupLoading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
 .groupTitle {
   font-size: 16px;
   font-weight: 500;
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.groupList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: stretch;
 }

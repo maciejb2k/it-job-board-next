@@ -1,11 +1,21 @@
 'use client';
 
-import { Button, Collapse, Modal, Checkbox } from '@mantine/core';
+import { Button, Collapse, Modal, Checkbox, Loader, ScrollArea, Box } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconChevronRight, IconChevronUp, IconAdjustments } from '@tabler/icons-react';
 
 import s from './styles.module.scss';
 import { useJobOffers } from '@/providers/JobOffersContext';
+import { useQuery } from '@tanstack/react-query';
+import { getCategories, getTechnologies } from '@/services/jobOffersService';
+
+type Category = {
+  name: string;
+  label: string;
+  id: string;
+};
+
+type Technology = Category;
 
 export default function Filters() {
   const [technologiesOpened, { toggle: technologiesToggle }] = useDisclosure(true);
@@ -13,19 +23,38 @@ export default function Filters() {
   const [filtersOpened, { open: openFilters, close: closeFilters }] = useDisclosure(false);
 
   const {
-    filters: { technologies },
+    filters: { by_technology, by_category },
     setTechnologies,
+    setCategories,
     hasFilters,
     clearFilters,
   } = useJobOffers();
 
   const updateTechnologies = (technology: string) => {
-    const newTechnologies = technologies.includes(technology)
-      ? technologies.filter((item) => item !== technology)
-      : [...technologies, technology];
+    const newTechnologies = by_technology.includes(technology)
+      ? by_technology.filter((item) => item !== technology)
+      : [...by_technology, technology];
 
     setTechnologies(newTechnologies);
   };
+
+  const updateCategories = (category: string) => {
+    const newCategories = by_category.includes(category)
+      ? by_category.filter((item) => item !== category)
+      : [...by_category, category];
+
+    setCategories(newCategories);
+  };
+
+  const getTechnologiesQuery = useQuery({
+    queryKey: ['technologies'],
+    queryFn: getTechnologies,
+  });
+
+  const getCategoriesQuery = useQuery({
+    queryKey: ['categories'],
+    queryFn: getCategories,
+  });
 
   return (
     <>
@@ -79,7 +108,25 @@ export default function Filters() {
           </header>
           <Collapse in={categoriesOpened}>
             <div className={s.groupContent}>
-              <Checkbox defaultChecked label="I agree to sell my privacy" />
+              {getCategoriesQuery.isLoading ? (
+                <div className={s.groupLoading}>
+                  <Loader color="blue" />
+                </div>
+              ) : (
+                <ScrollArea h={300} offsetScrollbars>
+                  <Box className={s.groupList}>
+                    {getCategoriesQuery.data.map((category: Category) => (
+                      <Checkbox
+                        key={category.id}
+                        label={category.label}
+                        value={category.name}
+                        checked={by_category.includes(category.name)}
+                        onChange={() => updateCategories(category.name)}
+                      />
+                    ))}
+                  </Box>
+                </ScrollArea>
+              )}
             </div>
           </Collapse>
         </div>
@@ -96,36 +143,25 @@ export default function Filters() {
           </header>
           <Collapse in={technologiesOpened}>
             <div className={s.groupContent}>
-              <Checkbox
-                label="JavaScript"
-                value="javascript"
-                checked={technologies.includes('javascript')}
-                onChange={() => updateTechnologies('javascript')}
-              />
-              <Checkbox
-                label="Ruby"
-                value="ruby"
-                checked={technologies.includes('ruby')}
-                onChange={() => updateTechnologies('ruby')}
-              />
-              <Checkbox
-                label="Flutter"
-                value="flutter"
-                checked={technologies.includes('flutter')}
-                onChange={() => updateTechnologies('flutter')}
-              />
-              <Checkbox
-                label="Scala"
-                value="scala"
-                checked={technologies.includes('scala')}
-                onChange={() => updateTechnologies('scala')}
-              />
-              <Checkbox
-                label="Java"
-                value="java"
-                checked={technologies.includes('java')}
-                onChange={() => updateTechnologies('java')}
-              />
+              {getTechnologiesQuery.isLoading ? (
+                <div className={s.groupLoading}>
+                  <Loader color="blue" />
+                </div>
+              ) : (
+                <ScrollArea h={300} offsetScrollbars>
+                  <Box className={s.groupList}>
+                    {getTechnologiesQuery.data.map((technology: Technology) => (
+                      <Checkbox
+                        key={technology.id}
+                        label={technology.label}
+                        value={technology.name}
+                        checked={by_technology.includes(technology.name)}
+                        onChange={() => updateTechnologies(technology.name)}
+                      />
+                    ))}
+                  </Box>
+                </ScrollArea>
+              )}
             </div>
           </Collapse>
         </div>

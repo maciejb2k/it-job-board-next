@@ -26,6 +26,18 @@
   }
 }
 
+.groupButtons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.groupLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .groupButton {
   display: flex;
   align-items: center;

@@ -1,16 +1,34 @@
 'use client';
 
-import { useState } from 'react';
 import { IconLayoutList, IconLayoutGrid } from '@tabler/icons-react';
-import { Input, InputBase, Combobox, useCombobox, VisuallyHidden, SegmentedControl } from '@mantine/core';
+import { VisuallyHidden, SegmentedControl, Select } from '@mantine/core';
 
-import { useJobOffers } from '@/providers/JobOffersContext';
+import { EmploymentTypes, SortTypes, useJobOffers } from '@/providers/JobOffersContext';
 
 import s from './styles.module.scss';
 
-const sortingOptions = ['Newest', 'Oldest', 'Highest salary', 'Lowest salary'];
+type SortingOptions = Array<{
+  label: string;
+  value: SortTypes;
+}>;
 
-const employmentOptions = [
+type EmploymentOptions = Array<{
+  label: string;
+  value: EmploymentTypes;
+}>;
+
+const sortingOptions: SortingOptions = [
+  {
+    label: 'Newest',
+    value: 'created_at',
+  },
+  {
+    label: 'Oldest',
+    value: '-created_at',
+  },
+];
+
+const employmentOptions: EmploymentOptions = [
   {
     label: 'B2B',
     value: 'b2b',
@@ -43,54 +61,12 @@ const viewOptions = [
 ];
 
 export default function JobOffersHeader() {
-  const combobox = useCombobox({
-    onDropdownClose: () => combobox.resetSelectedOption(),
-    onDropdownOpen: (eventSource) => {
-      if (eventSource === 'keyboard') {
-        combobox.selectActiveOption();
-      } else {
-        combobox.updateSelectedOptionIndex('active');
-      }
-    },
-  });
-
-  const [value, setValue] = useState<string | null>(sortingOptions[0]);
-
-  const options = sortingOptions.map((item) => (
-    <Combobox.Option value={item} key={item}>
-      {item}
-    </Combobox.Option>
-  ));
-
-  const { employmentType, viewType, setViewType, setEmploymentType } = useJobOffers();
+  const { employmentType, viewType, sort, setViewType, setEmploymentType, setSort } = useJobOffers();
 
   return (
     <header className={s.header}>
       <div className={s.headerLeft}>
-        <Combobox
-          store={combobox}
-          onOptionSubmit={(val) => {
-            setValue(val);
-            combobox.closeDropdown();
-          }}
-        >
-          <Combobox.Target>
-            <InputBase
-              size="xs"
-              component="button"
-              pointer
-              rightSection={<Combobox.Chevron />}
-              onClick={() => combobox.toggleDropdown()}
-              className={s.sort}
-            >
-              {value || <Input.Placeholder>Pick value</Input.Placeholder>}
-            </InputBase>
-          </Combobox.Target>
-
-          <Combobox.Dropdown>
-            <Combobox.Options>{options}</Combobox.Options>
-          </Combobox.Dropdown>
-        </Combobox>
+        <Select data={sortingOptions} placeholder="Sort by" clearable value={sort} onChange={setSort} />
       </div>
       <div className={s.headerRight}>
         <SegmentedControl value={employmentType} onChange={setEmploymentType} data={employmentOptions} />
